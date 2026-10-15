@@ -1,0 +1,31 @@
+<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1c0a0d"/><stop offset="1" stop-color="#4a0f14"/></linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ff4d4d" stop-opacity=".45"/><stop offset="1" stop-color="#ff4d4d" stop-opacity="0"/></radialGradient>
+    <linearGradient id="lobster-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff4d4d"/><stop offset="100%" stop-color="#991b1b"/></linearGradient>
+  </defs>
+  <rect width="640" height="400" fill="url(#bg)"/>
+  <circle cx="320" cy="200" r="190" fill="url(#glow)"/>
+
+  <!-- chat bubbles around the mascot -->
+  <g>
+    <rect x="70" y="70" width="170" height="54" rx="18" fill="#fff" fill-opacity=".92"/>
+    <rect x="90" y="88" width="104" height="9" rx="4.5" fill="#c9a0a3"/><rect x="90" y="106" width="70" height="9" rx="4.5" fill="#c9a0a3"/>
+    <rect x="400" y="130" width="170" height="54" rx="18" fill="#0f0709" fill-opacity=".6" stroke="#ff4d4d" stroke-opacity=".5"/>
+    <rect x="420" y="148" width="108" height="9" rx="4.5" fill="#fff" fill-opacity=".85"/><rect x="420" y="166" width="72" height="9" rx="4.5" fill="#fff" fill-opacity=".85"/>
+    <rect x="90" y="290" width="150" height="48" rx="18" fill="#fff" fill-opacity=".92"/>
+    <rect x="110" y="306" width="92" height="9" rx="4.5" fill="#c9a0a3"/>
+  </g>
+  <g fill="#00e5cc"><circle cx="440" cy="305" r="6"/><circle cx="462" cy="305" r="6" fill-opacity=".7"/><circle cx="484" cy="305" r="6" fill-opacity=".4"/></g>
+
+  <!-- OpenClaw mascot (MIT-licensed, from the OpenClaw package) -->
+  <g transform="translate(220 80) scale(1.7)">
+    <path d="M60 10 C30 10 15 35 15 55 C15 75 30 95 45 100 L45 110 L55 110 L55 100 C55 100 60 102 65 100 L65 110 L75 110 L75 100 C90 95 105 75 105 55 C105 35 90 10 60 10Z" fill="url(#lobster-gradient)"/>
+    <path d="M20 45 C5 40 0 50 5 60 C10 70 20 65 25 55 C28 48 25 45 20 45Z" fill="url(#lobster-gradient)"/>
+    <path d="M100 45 C115 40 120 50 115 60 C110 70 100 65 95 55 C92 48 95 45 100 45Z" fill="url(#lobster-gradient)"/>
+    <path d="M45 15 Q35 5 30 8" stroke="#ff4d4d" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M75 15 Q85 5 90 8" stroke="#ff4d4d" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <circle cx="45" cy="35" r="6" fill="#050810"/><circle cx="75" cy="35" r="6" fill="#050810"/>
+    <circle cx="46" cy="34" r="2.5" fill="#00e5cc"/><circle cx="76" cy="34" r="2.5" fill="#00e5cc"/>
+  </g>
+</svg>

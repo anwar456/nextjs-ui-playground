@@ -1,26 +1,302 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #fafaf9;
+  --fg: #18181b;
+  --muted: #62626d;
+  --line: #e4e4e7;
+  --card: #ffffff;
+  --accent: #4f46e5;
+  --accent-fg: #ffffff;
+  --accent-soft: rgba(79, 70, 229, 0.08);
+  --accent-2: #c026d3;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Dark follows the system unless the visitor picked a theme with the toggle
+   (data-theme on <html>, set by ThemeToggle and the inline script in layout). */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --bg: #0b0b0f;
+    --fg: #ededf0;
+    --muted: #a1a1ab;
+    --line: #26262e;
+    --card: #121218;
+    --accent: #818cf8;
+    --accent-fg: #0b0b0f;
+    --accent-soft: rgba(129, 140, 248, 0.12);
+    --accent-2: #f0abfc;
+    color-scheme: dark;
   }
 }
 
+:root[data-theme="dark"] {
+  --bg: #0b0b0f;
+  --fg: #ededf0;
+  --muted: #a1a1ab;
+  --line: #26262e;
+  --card: #121218;
+  --accent: #818cf8;
+  --accent-fg: #0b0b0f;
+  --accent-soft: rgba(129, 140, 248, 0.12);
+  --accent-2: #f0abfc;
+  color-scheme: dark;
+}
+
+/* While the theme is switching (class added by ThemeToggle), fade colours
+   instead of snapping. Only lives for a moment. */
+html.theme-fade,
+html.theme-fade *,
+html.theme-fade *::before,
+html.theme-fade *::after {
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease,
+    border-color 0.5s ease,
+    fill 0.5s ease,
+    stroke 0.5s ease,
+    box-shadow 0.5s ease !important;
+}
+
+/* Toggle icon: the moon is shown in light mode, the sun in dark mode */
+.theme-sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-moon {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-sun {
+    display: block;
+  }
+
+  :root:not([data-theme="light"]) .theme-moon {
+    display: none;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-card: var(--card);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Hide the page scrollbar; scrolling itself still works. */
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+}
+
+/* Freeze the page behind an open modal */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* ---- motion ---------------------------------------------------------- */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, #22c55e 55%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+/* Hero entrance, staggered with --i */
+.hero-in {
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+/* Ambient blobs behind every section. They sit on the left or right edge,
+   alternating from one section to the next. */
+.section-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  pointer-events: none;
+}
+
+.section-blob-1 {
+  top: -5rem;
+  right: -8rem;
+  width: 26rem;
+  height: 26rem;
+  background: var(--accent);
+  opacity: 0.16;
+}
+
+.section-blob-2 {
+  bottom: -5rem;
+  left: -7rem;
+  width: 22rem;
+  height: 22rem;
+  background: var(--accent-2);
+  opacity: 0.11;
+}
+
+main > section:nth-of-type(even) .section-blob-1 {
+  right: auto;
+  left: -8rem;
+}
+
+main > section:nth-of-type(even) .section-blob-2 {
+  left: auto;
+  right: -7rem;
+}
+
+.status-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+/* Scroll cue at the bottom of the hero: the arrow bobs, and keeps bobbing
+   (a bit faster) while hovered. */
+.scroll-cue {
+  animation: bob 1.8s ease-in-out infinite;
+}
+
+a:hover > .scroll-cue {
+  animation-duration: 0.9s;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 8px;
+  }
+}
+
+/* Name letters (see HeroName): hidden until anime.js floats them in. If JS
+   never runs, the fallback animation reveals them after 2.5s. */
+.hero-char {
+  display: inline-block;
+  opacity: 0;
+  animation: char-fallback 0s 2.5s forwards;
+}
+
+@keyframes char-fallback {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Profile photo pieces (see ProfileTilt): hidden until anime.js brings them
+   in. If JS never runs, the fallback animation reveals them after 4s. */
+.enter-hidden {
+  opacity: 0;
+  animation: enter-fallback 0s 4s forwards;
+}
+
+@keyframes enter-fallback {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Badges floating around the profile photo */
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+/* Gradient text that follows the primary colour */
+.text-gradient {
+  display: inline-block;
+  padding-bottom: 0.08em;
+  background-image: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Blinking caret for the typewriter line */
+.caret {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.05em;
+  margin-left: 0.15em;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .hero-in,
+  .status-dot,
+  .scroll-cue,
+  .float,
+  .caret {
+    animation: none;
+  }
+  .hero-char,
+  .enter-hidden {
+    opacity: 1;
+    animation: none;
+  }
 }
