@@ -1,16 +1,8 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { hasLocale } from "@/content";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BreadcrumbsDemo } from "./_components/BreadcrumbsDemo";
 import { DemoSection, Pending } from "./_components/DemoSection";
 import { FindRouteDemo } from "./_components/FindRouteDemo";
 import { SearchProductsDemo } from "./_components/SearchProductsDemo";
-
-export const metadata: Metadata = {
-  title: "Code Playground",
-  description: "Five small TypeScript and React exercises, each with a live demo.",
-};
 
 const exercises = [
   {
@@ -50,22 +42,19 @@ const exercises = [
   },
 ];
 
-export default async function PlaygroundPage({ params }: PageProps<"/[lang]/playground">) {
-  const { lang } = await params;
-  if (!hasLocale(lang)) notFound();
-
+export default function PlaygroundPage() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur">
         <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-6">
-          <a href={`/${lang}`} className="font-semibold tracking-tight">
-            Anwar<span className="text-accent">.</span>
+          <a href="#top" className="font-semibold tracking-tight">
+            Playground<span className="text-accent">.</span>
           </a>
           <ThemeToggle label="Toggle theme" />
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-5xl px-6 py-12 md:py-16">
+      <main id="top" className="mx-auto w-full max-w-5xl px-6 py-12 md:py-16">
         <p className="font-mono text-xs uppercase tracking-widest text-accent">
           Playground · 5 small exercises
         </p>

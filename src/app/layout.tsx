@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Particles } from "@/components/Particles";
-import { getDict, hasLocale, locales } from "@/content";
-import "../globals.css";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,36 +13,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export function generateStaticParams() {
-  return locales.map((lang) => ({ lang }));
-}
+export const metadata: Metadata = {
+  title: "Code Playground",
+  description: "Small TypeScript and React exercises, each with a live demo and test cases.",
+};
 
-export async function generateMetadata({
-  params,
-}: LayoutProps<"/[lang]">): Promise<Metadata> {
-  const { lang } = await params;
-  if (!hasLocale(lang)) return {};
-  const { meta } = getDict(lang);
-
-  return {
-    title: meta.title,
-    description: meta.description,
-    alternates: {
-      languages: { en: "/en", id: "/id" },
-    },
-  };
-}
-
-export default async function RootLayout({
-  children,
-  params,
-}: LayoutProps<"/[lang]">) {
-  const { lang } = await params;
-  if (!hasLocale(lang)) notFound();
-
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang={lang}
+      lang="en"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >

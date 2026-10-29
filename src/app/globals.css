@@ -104,12 +104,6 @@ html.theme-fade *::after {
 
 html {
   scroll-behavior: smooth;
-  /* Hide the page scrollbar; scrolling itself still works. */
-  scrollbar-width: none;
-}
-
-html::-webkit-scrollbar {
-  display: none;
 }
 
 body {
@@ -118,193 +112,13 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Freeze the page behind an open modal */
-html:has(dialog[open]) {
-  overflow: hidden;
-}
-
-section[id] {
-  scroll-margin-top: 4.5rem;
-}
-
 ::selection {
   background: var(--accent);
   color: var(--accent-fg);
 }
 
-/* ---- motion ---------------------------------------------------------- */
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes pulse-dot {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 color-mix(in srgb, #22c55e 55%, transparent);
-  }
-  50% {
-    box-shadow: 0 0 0 6px transparent;
-  }
-}
-
-/* Hero entrance, staggered with --i */
-.hero-in {
-  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: calc(var(--i, 0) * 90ms);
-}
-
-/* Ambient blobs behind every section. They sit on the left or right edge,
-   alternating from one section to the next. */
-.section-blob {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(72px);
-  pointer-events: none;
-}
-
-.section-blob-1 {
-  top: -5rem;
-  right: -8rem;
-  width: 26rem;
-  height: 26rem;
-  background: var(--accent);
-  opacity: 0.16;
-}
-
-.section-blob-2 {
-  bottom: -5rem;
-  left: -7rem;
-  width: 22rem;
-  height: 22rem;
-  background: var(--accent-2);
-  opacity: 0.11;
-}
-
-main > section:nth-of-type(even) .section-blob-1 {
-  right: auto;
-  left: -8rem;
-}
-
-main > section:nth-of-type(even) .section-blob-2 {
-  left: auto;
-  right: -7rem;
-}
-
-.status-dot {
-  animation: pulse-dot 2.4s ease-in-out infinite;
-}
-
-/* Scroll cue at the bottom of the hero: the arrow bobs, and keeps bobbing
-   (a bit faster) while hovered. */
-.scroll-cue {
-  animation: bob 1.8s ease-in-out infinite;
-}
-
-a:hover > .scroll-cue {
-  animation-duration: 0.9s;
-}
-
-@keyframes bob {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: 0 8px;
-  }
-}
-
-/* Name letters (see HeroName): hidden until anime.js floats them in. If JS
-   never runs, the fallback animation reveals them after 2.5s. */
-.hero-char {
-  display: inline-block;
-  opacity: 0;
-  animation: char-fallback 0s 2.5s forwards;
-}
-
-@keyframes char-fallback {
-  to {
-    opacity: 1;
-  }
-}
-
-/* Profile photo pieces (see ProfileTilt): hidden until anime.js brings them
-   in. If JS never runs, the fallback animation reveals them after 4s. */
-.enter-hidden {
-  opacity: 0;
-  animation: enter-fallback 0s 4s forwards;
-}
-
-@keyframes enter-fallback {
-  to {
-    opacity: 1;
-  }
-}
-
-/* Badges floating around the profile photo */
-.float {
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: 0 -10px;
-  }
-}
-
-/* Gradient text that follows the primary colour */
-.text-gradient {
-  display: inline-block;
-  padding-bottom: 0.08em;
-  background-image: linear-gradient(90deg, var(--accent), var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Blinking caret for the typewriter line */
-.caret {
-  display: inline-block;
-  width: 0.55ch;
-  height: 1.05em;
-  margin-left: 0.15em;
-  vertical-align: text-bottom;
-  background: currentColor;
-  animation: blink 1s steps(1) infinite;
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .hero-in,
-  .status-dot,
-  .scroll-cue,
-  .float,
-  .caret {
-    animation: none;
-  }
-  .hero-char,
-  .enter-hidden {
-    opacity: 1;
-    animation: none;
   }
 }
