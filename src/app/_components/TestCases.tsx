@@ -27,7 +27,7 @@ export function TestCases({ caption, cases }: { caption: string; cases: TestCase
   const passed = outcomes.filter((o) => o.pass).length;
 
   return (
-    <div className="overflow-hidden rounded-xl border border-line bg-card">
+    <div className="overflow-hidden rounded-md border border-line bg-card">
       <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
         <h3 className="text-sm font-semibold">{caption}</h3>
         <p
@@ -41,7 +41,7 @@ export function TestCases({ caption, cases }: { caption: string; cases: TestCase
       <div className="overflow-x-auto">
         <table className="w-full min-w-[40rem] text-left text-sm">
           <caption className="sr-only">{caption}</caption>
-          <thead className="text-xs uppercase tracking-wide text-muted">
+          <thead className="text-xs text-muted">
             <tr>
               <th scope="col" className="px-4 py-2 font-medium">Case</th>
               <th scope="col" className="px-4 py-2 font-medium">Expected</th>

@@ -9,8 +9,8 @@ Small TypeScript and React exercises built with the Next.js App Router, each wit
 | 1 | Filter, sort and paginate products | `src/lib/playground/search-products.ts` |
 | 2 | Resolve the best matching route | `src/lib/playground/find-route.ts` |
 | 3 | Build a safe breadcrumb trail | `src/lib/playground/build-breadcrumbs.ts` |
-| 4 | Product card component | _in progress_ |
-| 5 | Accessible tabs component | _in progress_ |
+| 4 | Product card component | `src/components/playground/ProductCard.tsx` |
+| 5 | Accessible tabs component | `src/components/playground/Tabs.tsx` |
 
 The demos live in `src/app/_components/`, and the page that lists them is `src/app/page.tsx`.
 

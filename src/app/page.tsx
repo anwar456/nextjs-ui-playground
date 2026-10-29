@@ -1,8 +1,9 @@
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { BreadcrumbsDemo } from "./_components/BreadcrumbsDemo";
-import { DemoSection, Pending } from "./_components/DemoSection";
+import { DemoSection } from "./_components/DemoSection";
 import { FindRouteDemo } from "./_components/FindRouteDemo";
+import { ProductCardDemo } from "./_components/ProductCardDemo";
 import { SearchProductsDemo } from "./_components/SearchProductsDemo";
+import { TabsDemo } from "./_components/TabsDemo";
 
 const exercises = [
   {
@@ -31,58 +32,43 @@ const exercises = [
     tags: "React / Next.js · Component",
     brief:
       "ProductCard: image, name, IDR price and an “Add to cart” button that calls onAdd(id); “Out of stock” and disabled when unavailable.",
-    demo: <Pending />,
+    demo: <ProductCardDemo />,
   },
   {
     title: "Build an Accessible Tabs Component",
     tags: "React / Next.js · Component",
     brief:
       "Tabs: a controlled tab list with proper tab roles and ARIA wiring between each tab button and its panel.",
-    demo: <Pending />,
+    demo: <TabsDemo />,
   },
 ];
 
 export default function PlaygroundPage() {
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur">
-        <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-6">
-          <a href="#top" className="font-semibold tracking-tight">
-            Playground<span className="text-accent">.</span>
-          </a>
-          <ThemeToggle label="Toggle theme" />
-        </div>
-      </header>
-
-      <main id="top" className="mx-auto w-full max-w-5xl px-6 py-12 md:py-16">
-        <p className="font-mono text-xs uppercase tracking-widest text-accent">
-          Playground · 5 small exercises
-        </p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-          Code playground
-        </h1>
+      <main className="mx-auto w-full max-w-4xl px-6 py-12 md:py-16">
+        <h1 className="text-3xl font-semibold tracking-tight">Code playground</h1>
         <p className="mt-4 max-w-2xl text-muted">
           Small TypeScript and React exercises, each with a live demo and test cases you can
           run right here.
         </p>
 
-        <nav aria-label="Exercises" className="mt-8">
-          <ol className="grid gap-2 sm:grid-cols-2">
+        <nav aria-label="Exercises" className="mt-6">
+          <ol className="list-decimal space-y-1 pl-5 text-sm">
             {exercises.map((c, i) => (
               <li key={c.title}>
                 <a
                   href={`#demo-${i + 1}`}
-                  className="flex gap-3 rounded-lg border border-line bg-card px-4 py-3 text-sm transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  className="text-accent underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
-                  <span className="font-mono text-accent">{i + 1}</span>
-                  <span>{c.title}</span>
+                  {c.title}
                 </a>
               </li>
             ))}
           </ol>
         </nav>
 
-        <div className="mt-12">
+        <div className="mt-10">
           {exercises.map((c, i) => (
             <DemoSection
               key={c.title}
